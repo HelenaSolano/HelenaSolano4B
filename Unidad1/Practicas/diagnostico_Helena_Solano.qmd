@@ -1,0 +1,40 @@
+---
+title: "Diagnostico"
+author: Helena Solano
+format: html
+---
+# Introducción
+Aplicar conceptos de variables, funciones, outputs, listas en python como introducción al paradigma
+orientado a objetos.
+
+Realizar un menu de ventas de 3 productos a elegir y consultar con el usuario las cantidades de cada uno, al final imprimir el ticket.
+
+```{python}
+#Diagnostico_nombre.py
+#Simulador de pedidos
+#Conceptos basicos: variables, inputs, condicionales, funciones y bucles
+
+#Elegir una tematica de tienda y escribir 3 productos
+productos = ["Fresa", "Chocolate", "Vainilla"]
+precios = [30, 34, 38]
+
+#Funcion para calcular total
+def calcular_total(cantidad, precios):
+    total=0
+    for i in range (len(cantidad)):
+        total += cantidad [i] * precios [i]
+    return total
+
+#Menu para usuario (Outpus)
+print("Menu de nieves Bienvenido")
+
+cantidad = [2,1,0]
+
+total = calcular_total(cantidad, precios)
+
+print("--RESUMEN DE LA COMPRA--")
+for i in range (len(productos)):
+    if cantidad[i] > 0:
+        print(f"{cantidad[i]} {productos[i]} - ${cantidad[i] * precios[i]}")
+print(f"Total a pagar: ${total}")
+```

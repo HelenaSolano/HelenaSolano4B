@@ -1,0 +1,86 @@
+---
+title: "Practica 6. Factory y Observer"
+author: Helena Solano
+date: 2025/09/29
+format: html
+---
+
+
+```{python}
+# Patrón Factory: Ejemplo de Fábrica de Vehículos
+
+#El patrón Factory se usa cuando necesitamos crear objetos sin especificar directamente la clase, dejando que una “fábrica” 
+# decida qué tipo de objeto devolver.
+
+# Clase base
+class Vehiculo:
+    def mover(self):
+        pass  # Aquí no hacemos nada, solo decimos que todos deben tener un "mover"
+
+# Clases hijas
+class Coche(Vehiculo):
+    def mover(self):
+        return "El coche se mueve por carretera"
+
+class Moto(Vehiculo):
+    def mover(self):
+        return "La moto se mueve rápido por la ciudad"
+
+# Fábrica que crea vehículos según el tipo
+class VehiculoFactory:
+    @staticmethod #Se usa cuando el método no necesita información del objeto ni de la clase.
+    def crear_vehiculo(tipo):
+        if tipo == "coche":
+            return Coche()
+        elif tipo == "moto":
+            return Moto()
+        else:
+            raise ValueError("Tipo de vehículo no soportado")
+
+# Uso del Factory
+vehiculo1 = VehiculoFactory.crear_vehiculo("coche")
+vehiculo2 = VehiculoFactory.crear_vehiculo("moto")
+
+print(vehiculo1.mover())  # El coche se mueve por carretera 
+print(vehiculo2.mover())  # La moto se mueve rápido por la ciudad 
+
+
+# Patrón Observer: Ejemplo de Noticias y Suscriptores
+
+# El patrón Observer se usa cuando queremos que un objeto (sujeto) notifique automáticamente a otros objetos (observadores) 
+# cuando ocurre un cambio.
+
+# Sujeto
+class CanalNoticias:
+    def __init__(self):
+        self.suscriptores = []  # Lista de observadores
+
+    def agregar_suscriptor(self, suscriptor):
+        self.suscriptores.append(suscriptor)
+
+    def notificar(self, noticia):
+        for suscriptor in self.suscriptores:
+            suscriptor.actualizar(noticia)
+
+# Observador
+class Suscriptor:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def actualizar(self, noticia):
+        print(f"{self.nombre} recibió la noticia: {noticia}")
+
+# Uso del Observer
+canal = CanalNoticias()
+
+# Creamos suscriptores
+s1 = Suscriptor("Ana")
+s2 = Suscriptor("Luis")
+
+# Se suscriben al canal
+canal.agregar_suscriptor(s1)
+canal.agregar_suscriptor(s2)
+
+# El canal publica una noticia
+canal.notificar("Nueva ley aprobada en el Congreso")
+```
